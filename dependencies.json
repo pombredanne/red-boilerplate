@@ -1,4 +1,7 @@
 {
 	"name": "JSHint",
-	"description": "JSHint your JavaScript"
+	"description": "JSHint your JavaScript",
+	"dependencies" : {
+		"jshint" : "0.7.x"
+	}
 }
