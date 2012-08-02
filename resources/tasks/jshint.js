@@ -100,7 +100,7 @@ module.exports = function (grunt) {
 				hasErrors = true;
 
 				grunt.log.writeln();
-				grunt.log.writeln(pad("", 4) + "Err ".red + filename + pad("", 106 - file.length, " "));
+				grunt.log.writeln(pad("", 4) + "Err ".red + filename);
 
 				for (var j = 0; j < jshint.errors.length; j ++) {
 					var err = jshint.errors[j],
@@ -114,7 +114,7 @@ module.exports = function (grunt) {
 			}
 
 			else {
-				grunt.log.writeln(pad("", 4) + "Ok  ".green + filename + pad("", 110 - file.length, " "));
+				grunt.log.writeln(pad("", 4) + "Ok  ".green + filename);
 			}
 		}
 
