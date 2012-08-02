@@ -1,6 +1,7 @@
 module.exports = function (grunt) {
 
 	var fs = require("fs"),
+	path = require("path"),
 	jshint = require("jshint").JSHINT,
 	config = require("../config/jshint.config.js"),
 	jshintOptions = config.jshint,
@@ -85,39 +86,38 @@ module.exports = function (grunt) {
 		var done = this.async();
 
 		var hasErrors = false;
-		var files = getJSFiles(process.cwd() + ["", "project", "static", "js"].join("/"));
+		var files = getJSFiles(path.join("project", "static", "js"));
 
 		for (var i = 0; i < files.length; i ++) {
 			var file = files[i];
 			var fa = file.split("/");
-			fa[fa.length-1] = fa[fa.length-1].white.bold;
-			var filename = fa.join("/").grey.bold;
+			fa[fa.length - 1] = fa[fa.length - 1].white;
+			var filename = fa.join("/").grey;
 
-			var contents = fs.readFileSync(file, 'utf-8');
+			var contents = fs.readFileSync(file, "utf-8");
 
 			if (!jshint(contents, jshintOptions)) {
 				hasErrors = true;
 
 				grunt.log.writeln();
-				grunt.log.writeln(filename + pad("", 106-file.length, ".") + "ERRORS".red);
-				grunt.log.writeln();
+				grunt.log.writeln(pad("", 4) + "Err ".red + filename);
 
 				for (var j = 0; j < jshint.errors.length; j ++) {
 					var err = jshint.errors[j],
-						line = ["line", pad(err.line, 3, " "), ": char", pad(err.character, 3, " "), "  "].join(" ").grey.bold,
-						reason = err.reason.yellow.bold;
+						line = ["line", pad(err.line, 3, " "), ": char", pad(err.character, 3, " "), pad("", 2)].join(" ").grey.bold,
+						reason = err.reason.yellow;
 
-					grunt.log.writeln(pad("", 20) + line + reason);
-					grunt.log.writeln(pad("", 42) + trim(err.evidence).white);
+					grunt.log.writeln(pad("", 8) + line + reason);
+					grunt.log.writeln(pad("", 30) + trim(err.evidence).white);
 					grunt.log.writeln();
 				}
 			}
 
 			else {
-				grunt.log.writeln(filename + pad("", 110-file.length, ".") + "OK".green);
+				grunt.log.writeln(pad("", 4) + "Ok  ".green + filename);
 			}
 		}
 
 		done(!hasErrors);
 	});
-}
+};
