@@ -1,5 +1,5 @@
 {
-	"name": "Rosy",
+	"name": "rosy",
 	"description": "An inheritable / extendable JavaScript framework.",
 	"repository": "git://github.com/ff0000/rosy.git",
 	"branch": "feature/grunt-rewrite",
