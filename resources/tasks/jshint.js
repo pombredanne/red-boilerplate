@@ -80,7 +80,7 @@ module.exports = function (grunt) {
 		return str.slice(0, i + 1);
 	}
 
-	grunt.registerTask("jshint", "JSHint your JavaScript. BETTER.", function () {
+	grunt.registerTask("jshint", "JSHint your JavaScript.", function () {
 
 		var done = this.async();
 
