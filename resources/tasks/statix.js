@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("statix:server", "Run the statix server", function(p) {
 		port = p || 8000;
 		var done = this.async();
-		exec("node", ["../../../node_modules/statix/bin/statix-cli.js", "server", "-p", port], "./resources/config/statix/", function (success) {
+		exec("node", ["../../../node_modules/statix/bin/statix-cli.js", "server", "-p", port, "-d", "../../../project"], "./resources/config/statix/", function (success) {
 			done(1);
 			process.exit();
 		});
