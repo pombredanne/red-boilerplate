@@ -5,7 +5,10 @@
   "engines": {
     "node": ">=0.6.x"
   },
-  "dependencies": {},
+  "dependencies": {
+    "grunt": "0.3.x",
+    "grunt-compass": "0.2.x"
+  },
   "repository": "git://github.com/ff0000/caboose.git",
   "scope": "resources/compass",
   "scripts" : {
