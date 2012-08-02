@@ -5,6 +5,7 @@
 	"branch": "feature/grunt-rewrite",
 	"scope": "project/static/js",
 	"dependencies": {
-        "requirejs": "2.0.x"
+		"requirejs": "2.0.x",
+		"grunt-requirejs": "0.2.x"
 	}
 }
