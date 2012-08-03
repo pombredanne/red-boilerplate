@@ -1,5 +1,5 @@
 {
-	"name": "JSHint",
+	"name": "jshint",
 	"description": "JSHint your JavaScript",
 	"version": "0.0.1",
 	"dependencies" : {
