@@ -20,19 +20,55 @@ var exec = function (exec, args, cwd, suppress, doneCB) {
 	});
 };
 
-function installComplete(cb) {
+function installComplete () {
 	process.exit();
+}
+
+function runRedStart () {
+	exec("red-start", ["--no-prompt"], null, false, function (success) {
+		if (!success) {
+			console.error("Something went wrong trying to run red-start");
+		}
+
+		installComplete();
+	});
+}
+
+function installRedStart () {
+	exec("pip", ["install", "red-start"], null, false, function (success) {
+		if (success) {
+			runRedStart();
+		} else {
+			console.error("Something went wrong trying to install red-start");
+			installComplete();
+		}
+	});
+}
+
+function testRedStart () {
+	exec("red-start", ["--help"], null, true, function (success) {
+		if (success) {
+			runRedStart();
+		} else {
+			installRedStart();
+		}
+	});
+}
+
+function testPipSupport () {
+	exec("pip", ["--version"], null, true, function (success) {
+		if (success) {
+			testRedStart();
+		} else {
+			console.error("You need to install pip before installing RED Start.");
+			installComplete();
+		}
+	});
 }
 
 exec("python", ["--version"], null, true, function (success) {
 	if (success) {
-		exec("python", ["red_start_settings.py", "no_prompt=True"], null, false, function (success) {
-			if (!success) {
-				console.error("Something went wrong trying to run red_start_settings.py");
-			}
-
-			installComplete();
-		});
+		testPipSupport();
 	} else {
 		console.error("You need to install Python before installing RED Start.");
 		installComplete();
