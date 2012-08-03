@@ -120,4 +120,11 @@ module.exports = function (grunt) {
 
 		done(!hasErrors);
 	});
+
+	grunt.config.set("watch.jshint", {
+		files: "project/static/js/**/*.js",
+		tasks: ["jshint"]
+	});
+
+	grunt.config.set("build.jshint", "jshint");
 };
