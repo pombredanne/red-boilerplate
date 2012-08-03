@@ -1,10 +1,8 @@
 {
-  "name": "statix",
-  "version": "0.0.1",
-  "engines": {
-    "node": ">=0.6.x"
-  },
-  "dependencies": {
-    "statix" : ">=1.1.0"
-  }
+	"name": "statix",
+	"description": "Statix is a static website generator.",
+	"version": "0.0.1",
+	"dependencies": {
+		"statix": ">=1.1.0"
+	},
 }
