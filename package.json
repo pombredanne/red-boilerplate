@@ -3,6 +3,10 @@
 	"description": "Statix is a static website generator.",
 	"version": "0.0.1",
 	"dependencies": {
-		"statix": ">=1.1.0"
+		"statix": ">=1.1.5"
+	},
+	"scripts": {
+		"install" : "npm install statix -g",
+		"update" : "npm update statix -g"
 	}
 }

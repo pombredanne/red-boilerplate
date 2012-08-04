@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask("statix:build", "Build with statix", function() {
 		var done = this.async();
-		exec("node", ["../../../node_modules/statix/bin/statix-cli.js", "build"], "./resources/config/statix/", function (success) {
+		exec("node", ["statix", "build"], "./resources/config/statix/", function (success) {
 			done(1);
 		});
 	});
@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("statix:server", "Run the statix server", function(p) {
 		port = p || 8000;
 		var done = this.async();
-		exec("node", ["../../../node_modules/statix/bin/statix-cli.js", "server", "-p", port, "-d", "../../../project"], "./resources/config/statix/", function (success) {
+		exec("node", ["statix", "server", "-p", port, "-d", "../../../project"], "./resources/config/statix/", function (success) {
 			done(1);
 			process.exit();
 		});
