@@ -11,9 +11,14 @@ var exec = function (exec, args, cwd, suppress, doneCB) {
 	var child = cp.spawn(exec, args || [], {
 		cwd: cwd,
 		env: null,
-		setsid: true,
-		stdio: (suppress) ? null : "inherit"
+		setsid: true
 	});
+
+	child.stdin.pipe(process.stdin);
+
+	if (!suppress) {
+		child.stdout.pipe(process.stdout);
+	}
 
 	child.addListener("exit", function (code) {
 		doneCB(!code);
@@ -34,13 +39,24 @@ function runRedStart () {
 	});
 }
 
-function installRedStart () {
-	exec("pip", ["install", "red-start"], null, false, function (success) {
+function sudoMakeMeASandwich () {
+	exec("sudo", ["pip", "install", "red-start"], null, false, function (success) {
 		if (success) {
 			runRedStart();
 		} else {
-			console.error("Something went wrong trying to install red-start");
+			console.error("No luck. Aborting");
 			installComplete();
+		}
+	});
+}
+
+function installRedStart () {
+	exec("pip", ["install", "red-start"], null, true, function (success) {
+		if (success) {
+			runRedStart();
+		} else {
+			console.warn("This bit might require sudo privileges. Let's try.");
+			sudoMakeMeASandwich();
 		}
 	});
 }
