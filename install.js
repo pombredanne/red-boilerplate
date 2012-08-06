@@ -14,7 +14,7 @@ var exec = function (exec, args, cwd, suppress, doneCB) {
 		setsid: true
 	});
 
-	child.stdin.pipe(process.stdin);
+	process.stdin.pipe(child.stdin);
 
 	if (!suppress) {
 		child.stdout.pipe(process.stdout);
