@@ -4,7 +4,6 @@
 	"version": "0.0.1",
 	"repository": {
 		"type": "git",
-		"branch": "feature/grunt-rewrite",
 		"url": "https://github.com/ff0000/rosy.git"
 	},
 	"dependencies": {
