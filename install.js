@@ -51,7 +51,7 @@ function sudoMakeMeASandwich () {
 }
 
 function installRedStart () {
-	exec("pip", ["install", "red-start"], null, true, function (success) {
+	exec("pip", ["install", "red-start"], null, false, function (success) {
 		if (success) {
 			runRedStart();
 		} else {
