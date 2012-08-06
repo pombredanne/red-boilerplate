@@ -1,4 +1,4 @@
-/*jslint node: true, onevar: false */
+/*jslint node: true */
 /*global jake, desc, task, error, pkg, installModule, parseFiles */
 "use strict";
 
@@ -66,11 +66,37 @@ function testPipSupport () {
 	});
 }
 
-exec("python", ["--version"], null, true, function (success) {
-	if (success) {
-		testPipSupport();
+function testPythonSupport () {
+	exec("python", ["--version"], null, true, function (success) {
+		if (success) {
+			testPipSupport();
+		} else {
+			console.error("You need to install Python before installing RED Start.");
+			installComplete();
+		}
+	});
+}
+
+(function checkInstall () {
+	var filesToCheck = [
+		"fabfile.py",
+		"project/manage.py",
+		"scripts/setup.sh"
+	];
+
+	var isInstalled = true;
+
+	for (var i = 0, j = filesToCheck.length; i < j; i++) {
+		if (!fs.existsSync(filesToCheck[i])) {
+			isInstalled = false;
+			break;
+		}
+	}
+
+	if (!isInstalled) {
+		testPythonSupport();
 	} else {
-		console.error("You need to install Python before installing RED Start.");
+		console.log("Looks like this project was initialized using RED Start. Skipping ahead...");
 		installComplete();
 	}
-});
+}());
