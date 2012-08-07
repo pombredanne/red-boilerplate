@@ -40,24 +40,13 @@ function runRedStart () {
 	});
 }
 
-function sudoMakeMeASandwich () {
-	exec("sudo", ["pip", "install", "red-start"], null, false, function (success) {
-		if (success) {
-			runRedStart();
-		} else {
-			console.error("No luck. Aborting");
-			installComplete();
-		}
-	});
-}
-
 function installRedStart () {
 	exec("pip", ["install", "red-start"], null, false, function (success) {
 		if (success) {
 			runRedStart();
 		} else {
-			console.warn("This bit might require sudo privileges. Let's try.");
-			sudoMakeMeASandwich();
+			console.error("This bit might require sudo privileges. Try installing via `sudo pip install red-start`.");
+			installComplete();
 		}
 	});
 }
