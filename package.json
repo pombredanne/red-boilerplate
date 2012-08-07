@@ -10,7 +10,8 @@
 		"grunt-compass": "0.2.x"
 	},
 	"scripts": {
-		"install" : "node install.js"
+		"install" : "node resources/initialize/caboose.js",
+		"initialize" : "node resources/initialize/caboose.js"
 	},
 	"config": {
 		"scope": "resources/compass"
