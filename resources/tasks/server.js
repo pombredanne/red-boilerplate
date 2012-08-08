@@ -1,9 +1,10 @@
 module.exports = function(grunt) {
-	var fs = require("fs");
-	var cp = require("child_process");
-	var path = require("path");
 
 	grunt.registerTask("server", "An alias for Python's runserver", function () {
+		var fs = require("fs");
+		var cp = require("child_process");
+		var path = require("path");
+
 		var args = grunt.utils.toArray(arguments);
 		var done = this.async();
 
@@ -13,34 +14,21 @@ module.exports = function(grunt) {
 
 		var activate = path.join("env", "bin", "activate");
 		var setup = path.join("scripts", "setup.sh");
-		var manager = path.join("project", "manage.py");
+		var server = path.join("scripts", "run.sh");
 
 		var child;
 
-		var runServer = function () {
-			if (fs.existsSync(manager)) {
-				child = cp.spawn("python", [manager, "runserver", cmd], {
+		var runProject = function () {
+			if (fs.existsSync(setup)) {
+				child = cp.spawn("sh", [server, cmd], {
 					stdio: "inherit"
 				});
 
 				child.addListener("exit", function (code) {
-					done(!!!code);
+					done(!!code);
 				});
 			} else {
-				console.error("Can't find %s. Aborting.".replace("%s", activate));
-				process.exit();
-			}
-		};
-
-		var activateProject = function () {
-			if (fs.existsSync(activate)) {
-				child = cp.spawn("source", [activate], {
-					stdio: "inherit"
-				});
-
-				child.addListener("exit", runServer);
-			} else {
-				console.error("Can't find %s. Aborting.".replace("%s", activate));
+				console.error("No run script found. Aborting.");
 				process.exit();
 			}
 		};
@@ -51,7 +39,13 @@ module.exports = function(grunt) {
 					stdio: "inherit"
 				});
 
-				child.addListener("exit", activateProject);
+				child.addListener("exit", function (code) {
+					if (code !== 0) {
+						process.exit();
+					} else {
+						runProject();
+					}
+				});
 			} else {
 				console.error("No setup script found. Aborting.");
 				process.exit();
@@ -61,7 +55,7 @@ module.exports = function(grunt) {
 		if (!fs.existsSync(activate)) {
 			setupProject();
 		} else {
-			activateProject();
+			runProject();
 		}
 	});
 
