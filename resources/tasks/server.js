@@ -20,9 +20,6 @@ module.exports = function(grunt) {
 		var runServer = function () {
 			if (fs.existsSync(manager)) {
 				child = cp.spawn("python", [manager, "runserver", cmd], {
-					cwd: process.cwd(),
-					env: null,
-					setsid: true,
 					stdio: "inherit"
 				});
 
