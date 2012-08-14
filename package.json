@@ -8,7 +8,6 @@
 	},
 	"dependencies": {
 		"requirejs": "2.0.x",
-		"grunt-requirejs": "0.2.x"
 	},
 	"config": {
 		"scope": "project/static/js"
