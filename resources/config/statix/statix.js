@@ -127,7 +127,7 @@ module.exports = {
 			}
 
 			else {
-				fs.link(from, to);
+				fs.linkSync(from, to);
 			}
 		}
 
