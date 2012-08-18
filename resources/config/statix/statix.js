@@ -3,6 +3,22 @@ var path = require("path");
 var pages = require("./pages.js");
 var globals = require("./globals.js");
 var build = require("./build.js");
+var cp = require("child_process");
+
+var exec = function (exec, args, cwd, suppress, doneCB) {
+	process.stdin.resume();
+
+	var child = cp.spawn(exec, args || [], {
+		cwd: cwd,
+		env: null,
+		setsid: true,
+		stdio: (suppress) ? null : "inherit"
+	});
+
+	child.addListener("exit", function (code) {
+		doneCB(!code);
+	});
+};
 
 module.exports = {
 	
@@ -69,7 +85,17 @@ module.exports = {
 	*/
 
 	preBuild : function (done) {
-		done();
+		exec("grunt", ["build"], null, false, function (success) {
+			if (success) {
+				done();
+			}
+			else {
+				console.log("");
+				console.error("There was an error running grunt build...");
+				console.log("");
+				process.exit();
+			}
+		});
 	},
 
 	/*
