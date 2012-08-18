@@ -1,4 +1,5 @@
 var fs = require("fs");
+var wrench = require("wrench");
 var pages = require("./pages.js");
 var globals = require("./globals.js");
 var build = require("./build.js");
@@ -114,8 +115,7 @@ module.exports = {
 			if (fromStats.isDirectory()) {
 
 				if (!fs.existsSync(to)) {
-					console.log(to);
-					fs.mkdirSync(to);
+					wrench.mkdirSyncRecursive(to);
 				}
 
 				var files = fs.readdirSync(from);
@@ -123,7 +123,7 @@ module.exports = {
 					moveFiles(from + "/" + files[i], to + "/" + files[i]);
 				}
 
-				fs.rmdirSync(from);
+				wrench.rmdirSyncRecursive(from);
 			}
 
 			else {
