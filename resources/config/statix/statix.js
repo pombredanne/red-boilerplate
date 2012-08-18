@@ -1,5 +1,4 @@
 var fs = require("fs");
-var path = require("path");
 var pages = require("./pages.js");
 var globals = require("./globals.js");
 var build = require("./build.js");
@@ -112,9 +111,9 @@ module.exports = {
 			var fromStats = fs.statSync(from);
 			var fromName = from.substr(from.lastIndexOf("/"));
 
-			if(fromStats.isDirectory()){
+			if (fromStats.isDirectory()) {
 
-				if(!path.existsSync(to)){
+				if (!fs.existsSync(to)) {
 					console.log(to);
 					fs.mkdirSync(to);
 				}
@@ -127,9 +126,8 @@ module.exports = {
 				fs.rmdirSync(from);
 			}
 
-			else{
-				fs.writeFileSync(to, fs.readFileSync(from, 'utf-8'));
-				fs.unlinkSync(from);
+			else {
+				fs.link(from, to);
 			}
 		}
 
