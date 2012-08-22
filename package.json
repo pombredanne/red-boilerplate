@@ -7,8 +7,14 @@
 		"url": "https://github.com/ff0000/rosy.git"
 	},
 	"dependencies": {
-		"requirejs": "2.0.x",
-		"grunt-requirejs": "0.2.x"
+		"requirejs": ">=2.0.x",
+		"grunt-requirejs": ">=0.2.x"
+	},
+	"devDependencies": {
+		"mocha": "1.3.x",
+		"union": ">=0.3.4",
+		"ecstatic": ">=0.1.6",
+		"optimist": ">=0.3.4"
 	},
 	"config": {
 		"scope": "project/static/js"
