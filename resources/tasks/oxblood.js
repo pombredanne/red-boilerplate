@@ -15,15 +15,24 @@ module.exports = function (grunt) {
 			process.exit();
 		}
 
-		var child = cp.spawn("node", [runner, "-m", mode, "-r", jsDir], {
+		var child = cp.spawn("npm", ["install"], {
 			env: null,
 			setsid: true,
 			stdio: "inherit"
 		});
 
 		child.addListener("exit", function () {
-			done();
+			var child = cp.spawn("node", [runner, "-m", mode, "-r", jsDir], {
+				env: null,
+				setsid: true,
+				stdio: "inherit"
+			});
+
+			child.addListener("exit", function () {
+				done();
+			});
 		});
+
 	});
 
 };
